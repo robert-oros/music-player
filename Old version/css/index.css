@@ -1,0 +1,64 @@
+body {
+  background:  #15171e;
+}
+.marq, .time-box, .btn-add {
+  -webkit-touch-callout: none; 
+  -webkit-user-select: none; 
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none;
+  user-select: none;
+}
+table {
+  border: 1px solid white;
+}
+.table td {
+  padding: 7px;
+}
+tr:hover {
+  cursor: pointer;
+  background:  #8d8d8d44;
+}
+.table-text {
+  font-size: 13px;
+  color: white;
+}
+.fa-edit, .fa-close {
+  font-size: 14px;
+  color: white;
+}
+.fa-edit {
+  padding-right: 10px;
+}
+.add-container {
+  padding: 6px 0px 6px 9px;
+  border-radius: 0px 0px 2px 2px;
+  margin-top: -16px;
+  background: white;
+}
+.btn-add {
+  color: black;
+  background: rgb(241, 240, 240);
+  font-size: 13px;
+  outline: none;
+  border-radius: 2px;
+  border: 1px solid black;
+  padding: 5px 8px 5px 8px;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .table-text {
+    font-size: 12px;
+  }
+  .table td {
+    padding: 6px;
+  }
+}
+@media (max-width: 450px) {
+  .table-text {
+    font-size: 11px;
+  }
+  .table td {
+    padding: 4px;
+  }
+}

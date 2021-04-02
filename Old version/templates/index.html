@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Audio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="/audio/css/style-player.css" rel="stylesheet">
+    <link href="/audio/css/index.css" rel="stylesheet">
+  </head>
+  <style>
+  /* .marq {
+    color: white;
+    font-size: 12px;
+    height: 15px;
+    background:rgb(30, 17, 85);
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+  } */
+  </style>
+<body>
+  <div class="container py-4">
+    <div class="audio">
+      <div class="button">
+        <div class="song_play" id="playbtn">
+          <div class="play-button">
+            <i class="fa fa-play" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="song_pause" id="pausebtn">
+          <div class="pause-button">
+            <i class="fa fa-pause" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div id="time-box" class="time-box">
+        <span id="curtimetext">00:00</span>
+      </div>
+      <div>
+        <input id="seekslider" class="slider" type="range" min="0" max="100" value="0" step="1">
+      </div>
+      <div class="time-box">
+        <span id="durtimetext">00:00</span>
+      </div>
+      <div class="volume-container">
+          <div id="volumebtn">
+            <i class="volumeIcon fas fa-volume-up"></i>
+          </div> 
+          <div id="mutebtn">
+            <i class="muteIcon fas fa-volume-mute fa-2x"></i>
+          </div> 
+        <input id="volumeslider" type="range" min="0" max="100" value="100" class="volume_slider">
+      </div>  
+    </div>
+    <table class="table">
+      <tbody>
+        {% for row in rows %}
+        <tr class="trelem">
+          <td class="table-text">{{ row[0] }}</td>
+          <td class="table-text">{{ row[1] }}</td>
+          <td class="table-text">{{ row[2] }}</td>
+          <td class="table-text">
+            <!-- <audio id="audio" preload="none">
+              <source src="../../{{ row[3] }}" type="audio/mp3">
+            </audio>  -->
+          </td>
+          <td>
+          <a  class="del" href="/audio/delete?id={{ row[0] }}">
+          <i class="float-right fa fa-close"></i>
+          </a>
+            <a class="edit" href="/audio/edit?id={{ row[0] }}"><i class="float-right fas fa-edit"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="add-container">
+      <a href="/audio/add"><button class="btn-add">Adaugă</button></a>
+    </div>
+  </div>
+  <script src="/audio/js/player.js"></script>
+  <script src="/audio/js/async.js"></script>
+</body>
+</html>
