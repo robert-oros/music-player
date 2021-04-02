@@ -10,7 +10,7 @@ allSongs.forEach(song => {
   song.addEventListener("click", function(e){
     selectedSong = song.children[3].childNodes[1].src
 
-    console.log(selectedSong)
+    console.log(selectedSong.split("/"))
 
     audio.src = "/songs"
   })
