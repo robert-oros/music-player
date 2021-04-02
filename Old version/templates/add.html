@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>Adaugă</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet"> 
+  <link href="/audio/css/add.css" rel="stylesheet">
+</head>
+<body>
+  <div class="alert text-danger">{{error}}.</div>
+  <div class="container add-page">
+    <div class="form">
+      <form action="/audio/add" method="POST" enctype="multipart/form-data">
+        <a href="/audio/" class="float-right"><i class="fa fa-close" href="/audio/"></i></a>
+        <h1 class="pb-4 pt-3">Adaugă muzica</h1>
+        <input type="text" name="title" placeholder="Titlu"><br>
+        <input type="text" name="autor" placeholder="Autor"><br>
+        <label class="custom-file-upload">
+          <input type="file" name="file"/>
+          Alege fisierul
+        </label><br>
+        <div class="add-container">
+        <input type="submit" value="Adaugă" class="btn-add mt-3">
+        </div>
+      </form> 
+    </div>
+  </div>
+</body>
+</html>

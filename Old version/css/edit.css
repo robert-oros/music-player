@@ -1,0 +1,63 @@
+body {
+    background:  #15171e;
+    font-family: 'Quicksand', sans-serif;
+}
+.form {
+    background-color: white;
+    padding: 20px 20px 11px 20px;
+    border-radius: 2px;
+}
+.edit-page {
+    width: 380px;
+    margin: auto;
+    padding: 32px;
+}
+input[type="text"] {
+    resize: none;
+    color: #383838;
+    font-size: 14px;
+    padding: 10px 0px 3px 1px;
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #555555;
+}
+::placeholder {
+    font-size: 13px;
+    color: black;
+}
+input[type="text"]:focus {
+    outline: none;
+    border-bottom: 1px solid #007bff;
+}
+.btn-edit {
+    color: white;
+    background: #007bff;
+    border-radius: 2px;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    padding: 5px 8px 5px 8px;
+    margin: 5px 0px 0px 0px;
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: normal;
+    color: #323232;
+}
+.fa {
+    color: #555555;
+    font-weight: normal;
+    padding: 4px;
+    font-size: 17px;
+    margin-top: -16px;
+    margin-right: -14px;
+}
+@media (max-width: 400px){
+    .edit-page {
+        width: 100%;
+    }
+}

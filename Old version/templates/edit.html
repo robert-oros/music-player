@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title>Editează</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet"> 
+  <link href="/audio/css/edit.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container edit-page">
+    <div class="form">
+      <form class="form-data" action="/audio/edit?id={{row[0]}}" method="POST">
+        <a href="/audio/" class="float-right"><i class="fa fa-close" href="/audio/"></i></a>
+        <h1 class="pb-4 pt-3">Editează muzica</h1>
+        <input type="text" name="title" value="{{row[1]}}"><br>
+        <input type="text" name="autor" value="{{row[2]}}"><br>
+          <button type="submit" class="editBtn btn-edit">Editează</button>
+      </form> 
+    </div>  
+  </div>
+  <script src="/audio/js/async.js"></script>
+</body> 
+</html>

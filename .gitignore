@@ -1,0 +1,6 @@
+.vscode
+venv
+database.db
+uploads
+songs
+animals.json
