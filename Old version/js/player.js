@@ -1,5 +1,20 @@
 let audio = new Audio();
+
+
 audio.src = "https://www.resursecrestine.ro/download/73829";
+
+allSongs = document.querySelectorAll(".trelem");
+allSongs.forEach(song => {
+
+
+  song.addEventListener("click", function(e){
+    selectedSong = song.children[3].childNodes[1].src
+
+    console.log(selectedSong)
+
+    audio.src = "/songs"
+  })
+});
 
 
 playBtn = document.getElementById("playbtn");
