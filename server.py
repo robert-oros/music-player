@@ -11,11 +11,11 @@ app = Flask(__name__)
 
 def create_connection():
   return mysql.connector.connect(
-    host=os.getenv("DB_HOST", "localhost"),
-    user=os.getenv("DB_USER", "player"),
-    password=os.getenv("DB_PASS", "pass"),
-    database=os.getenv("DB_NAME", "database"),
-    port=os.getenv("DB_PORT", "3306"),
+    host=os.getenv("MYSQL_HOST", "localhost"),
+    user=os.getenv("MYSQL_USER", "player"),
+    password=os.getenv("MYSQL_PASSWORD", "pass"),
+    database=os.getenv("MYSQL_DATABASE", "database"),
+    port=os.getenv("MYSQL_PORT", "3306"),
   )
 
 @app.route("/audio/js/<path:path>")
