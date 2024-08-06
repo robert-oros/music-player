@@ -1,19 +1,19 @@
 let audio = new Audio();
 
-allSongs = document.querySelectorAll(".trelem");
-allSongs.forEach(song => {
+// allSongs = document.querySelectorAll(".trelem");
+// allSongs.forEach(song => {
 
 
-  song.addEventListener("click", function(e){
-    selectedSong = song.children[3].childNodes[1].src.split("/")[4]
+//   song.addEventListener("click", function(e){
+//     selectedSong = song.children[3].childNodes[1].src.split("/")[4]
 
     
 
-    audio.src = "songs/"+selectedSong
+//     audio.src = "songs/"+selectedSong
 
-    console.log(audio.src)
-  })
-});
+//     console.log(audio.src)
+//   })
+// });
 
 
 playBtn = document.getElementById("playbtn");
@@ -41,12 +41,13 @@ progresBar.addEventListener("change", function() {
 
 
 function playPause() {
-  if (audio.paused) {
+  if (audio.src == "") {
+    alert("You should add a song!")
+  } else if (audio.paused) {
     audio.play();
     playBtn.style.display = "none";
     pauseBtn.style.display = "block";
-  } 
-  else {
+  } else {
     audio.pause();
     playBtn.style.display = "block";
     pauseBtn.style.display = "none";
