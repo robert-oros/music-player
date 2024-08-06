@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response
 from flask import request, redirect, send_from_directory
+import mysql.connector
 import sqlite3
 import uuid
 import os
@@ -9,7 +10,13 @@ app = Flask(__name__)
 
 
 def create_connection():
-  return sqlite3.connect('database.db')
+  return mysql.connector.connect(
+    host=os.getenv("DB_HOST", "localhost"),
+    user=os.getenv("DB_USER", "player"),
+    password=os.getenv("DB_PASS", "pass"),
+    database=os.getenv("DB_NAME", "database"),
+    port=os.getenv("DB_PORT", "3306"),
+  )
 
 @app.route("/audio/js/<path:path>")
 def send_js(path):
@@ -21,7 +28,8 @@ def send_css(path):
 
 @app.route("/audio/", methods=["GET"])
 def home():
-  cursor = create_connection().cursor()
+  connection = create_connection()
+  cursor = connection.cursor()
   cursor.execute('''SELECT * FROM mp3player''')
   rows = cursor.fetchall()
   cursor.close()
@@ -39,21 +47,25 @@ def add():
     full_name = "songs/" + str(file_name) + file_extension
     file.save(full_name)
   
-    db = create_connection()
-    db.execute(f'''INSERT INTO mp3player(title, autor, filemp3)
+    connection = create_connection()
+    cursor = connection.cursor()
+    cursor.execute(f'''INSERT INTO mp3player(title, autor, filemp3)
     VALUES("{title}", "{autor}", "{full_name}")''')
-    db.commit()
-    db.close()
+    connection.commit()
+    cursor.close()
+    connection.close()
     return redirect("/audio/")
   return render_template("add.html")
 
 @app.route("/audio/delete", methods=["GET","DELETE"])
 def delete():
   id = request.args.get("id")
-  db = create_connection()
-  db.execute("DELETE FROM mp3player WHERE ID = ? ", id)
-  db.commit()
-  db.close()
+  connection = create_connection()
+  cursor = connection.cursor()
+  cursor.execute("DELETE FROM mp3player WHERE ID = ? ", (id,))
+  connection.commit()
+  cursor.close()
+  connection.close()
   return Response(mimetype='application/json')
 
 @app.route("/audio/edit", methods=['GET','POST'])
@@ -62,18 +74,21 @@ def edit():
     title = request.form.get("title")
     autor = request.form.get("autor")
     file = request.form.get("file")
-    db = create_connection()
-    db.execute(f'''UPDATE mp3player SET title="{title}", autor="{autor}", filemp3="{file}"''')
-    db.commit()
-    db.close()
+    connection = create_connection()
+    cursor = connection.cursor()
+    cursor.execute(f'''UPDATE mp3player SET title="{title}", autor="{autor}", filemp3="{file}"''')
+    connection.commit()
+    cursor.close()
+    connection.close()
     return redirect("/audio/")
   id = request.args.get("id")
-  db = create_connection()
-  cursor = db.cursor()
-  cursor = db.execute("SELECT * FROM mp3player WHERE ID=?", id)
-  row = cursor.fetchall()
-  db.close()
-  return render_template("edit.html", row=row[0])
+  connection = create_connection()
+  cursor = connection.cursor()
+  cursor.execute("SELECT * FROM mp3player WHERE ID=?", (id,))
+  row = cursor.fetchone()
+  cursor.close()
+  connection.close()
+  return render_template("edit.html", row=row)
 
 
 app.run(port=8000, debug=True)
