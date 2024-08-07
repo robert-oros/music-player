@@ -28,12 +28,17 @@ def send_css(path):
 
 @app.route("/audio/", methods=["GET"])
 def home():
-  connection = create_connection()
-  cursor = connection.cursor()
-  cursor.execute('''SELECT * FROM mp3player''')
-  rows = cursor.fetchall()
-  cursor.close()
-  return render_template("index.html",rows=rows)
+  try:
+    connection = create_connection()
+    with connection.cursor() as cursor:
+      cursor.execute('SELECT * FROM mp3player')
+      rows = cursor.fetchall()
+  except Exception as e:
+    return Response(f"Error fetching data: {str(e)}", status=500)
+  finally:
+    connection.close()
+
+  return render_template("index.html", rows=rows)
 
 @app.route("/audio/add", methods=["GET","POST"])
 def add():
@@ -62,6 +67,7 @@ def delete():
   id = request.args.get("id")
   if not id:
     return Response("Missing 'id' parameter", status=400, mimetype='application/json')
+
   connection = create_connection()
   cursor = connection.cursor()
   try:
