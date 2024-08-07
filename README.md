@@ -160,7 +160,7 @@ The application uses a database table named `mp3player` with the following schem
 - **id** (INT, Primary Key): The unique identifier for each audio track.
 - **title** (VARCHAR): The title of the audio track.
 - **autor** (VARCHAR): The author of the audio track.
-- **filemp3** (VARCHAR): The file path of the uploaded audio file.
+- **audio_path** (VARCHAR): The file path of the uploaded audio file.
 
 ### Error Handling
 
