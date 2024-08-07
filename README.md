@@ -2,6 +2,8 @@
 
 A web-based music player application built using HTML, CSS, JavaScript, and Flask. This project allows users to upload, play, and manage audio files seamlessly.
 
+> Note: The original repository for this project was hosted on a private Bitbucket account within an organization, but access was lost. Consequently, a new repository has been established to continue development and maintain the application.
+
 ## Table of Contents
 
 - [Features](#features)
@@ -180,7 +182,7 @@ Ensure you have a `.env` file set up with these variables if you want to customi
 
 ### Notes
 
-- **Highlight Incomplete Features:** Clearly indicate that the "edit" feature is not yet complete and is currently under development.
+> **Highlight Incomplete Features:** Clearly indicate that the "edit" feature, as well as the functionality for selecting and displaying the current song, are not yet complete and are under development.
 
 
 <!-- 
