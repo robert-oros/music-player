@@ -60,13 +60,21 @@ def add():
 @app.route("/audio/delete", methods=["GET","DELETE"])
 def delete():
   id = request.args.get("id")
+  if not id:
+    return Response("Missing 'id' parameter", status=400, mimetype='application/json')
   connection = create_connection()
   cursor = connection.cursor()
-  cursor.execute("DELETE FROM mp3player WHERE ID = ? ", (id,))
-  connection.commit()
-  cursor.close()
-  connection.close()
-  return Response(mimetype='application/json')
+  try:
+    cursor.execute("DELETE FROM mp3player WHERE ID = %s", (id,))
+    connection.commit()
+  except Exception as e:
+    connection.rollback()
+    return Response(f"Error deleting record: {str(e)}", status=500, mimetype='application/json')
+  finally:
+    cursor.close()
+    connection.close()
+  
+  return Response("Record deleted successfully", status=200, mimetype='application/json')
 
 @app.route("/audio/edit", methods=['GET','POST'])
 def edit():
