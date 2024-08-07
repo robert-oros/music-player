@@ -39,28 +39,42 @@ def home():
     connection.close()
 
   return render_template("index.html", rows=rows)
-
-@app.route("/audio/add", methods=["GET","POST"])
+  
+@app.route("/audio/add", methods=["GET", "POST"])
 def add():
   if request.method == "POST":
     title = request.form.get("title")
     autor = request.form.get("autor")
-    file = request.files["file"]
+    file = request.files.get("file")
 
-    file_name = uuid.uuid4()
-    filename, file_extension = os.path.splitext(file.filename)
-    full_name = "songs/" + str(file_name) + file_extension
-    file.save(full_name)
-  
-    connection = create_connection()
-    cursor = connection.cursor()
-    cursor.execute(f'''INSERT INTO mp3player(title, autor, filemp3)
-    VALUES("{title}", "{autor}", "{full_name}")''')
-    connection.commit()
-    cursor.close()
-    connection.close()
+    if not title or not autor or not file:
+      return Response("Missing title, autor, or file", status=400)
+
+    try:
+      file_path = save_file(file)
+      insert_song(title, autor, file_path)
+    except Exception as e:
+      return Response(f"Error adding song: {str(e)}", status=500)
+
     return redirect("/audio/")
+
   return render_template("add.html")
+
+def save_file(file):
+  file_name = uuid.uuid4()
+  _, file_extension = os.path.splitext(file.filename)
+  full_name = os.path.join("songs", f"{file_name}{file_extension}")
+  file.save(full_name)
+  return full_name
+
+def insert_song(title, autor, file_path):
+  connection = create_connection()
+  try:
+    with connection.cursor() as cursor:
+      cursor.execute("INSERT INTO mp3player (title, autor, filemp3) VALUES (%s, %s, %s)",(title, autor, file_path))
+    connection.commit()
+  finally:
+    connection.close()
 
 @app.route("/audio/delete", methods=["GET","DELETE"])
 def delete():
