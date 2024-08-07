@@ -6,5 +6,5 @@ CREATE TABLE mp3player (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     autor VARCHAR(255) NOT NULL,
-    filemp3 VARCHAR(255) NOT NULL
+    audio_path VARCHAR(255) NOT NULL
 );

@@ -71,7 +71,7 @@ def insert_song(title, autor, file_path):
   connection = create_connection()
   try:
     with connection.cursor() as cursor:
-      cursor.execute("INSERT INTO mp3player (title, autor, filemp3) VALUES (%s, %s, %s)",(title, autor, file_path))
+      cursor.execute("INSERT INTO mp3player (title, autor, audio_path) VALUES (%s, %s, %s)",(title, autor, file_path))
     connection.commit()
   finally:
     connection.close()
@@ -104,7 +104,7 @@ def edit():
     file = request.form.get("file")
     connection = create_connection()
     cursor = connection.cursor()
-    cursor.execute(f'''UPDATE mp3player SET title="{title}", autor="{autor}", filemp3="{file}"''')
+    cursor.execute(f'''UPDATE mp3player SET title="{title}", autor="{autor}", audio_path="{file}"''')
     connection.commit()
     cursor.close()
     connection.close()
