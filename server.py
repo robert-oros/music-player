@@ -76,7 +76,7 @@ def insert_song(title, autor, file_path):
   finally:
     connection.close()
 
-@app.route("/audio/delete", methods=["GET","DELETE"])
+@app.route("/audio/delete", methods=["DELETE"])
 def delete():
   id = request.args.get("id")
   if not id:
