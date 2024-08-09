@@ -2,7 +2,8 @@
 
 A web-based music player application built using HTML, CSS, JavaScript, and Flask. This project allows users to upload, play, and manage audio files seamlessly.
 
-> Note: The original repository for this project was hosted on a private Bitbucket account within an organization, but access was lost. Consequently, a new repository has been established to continue development and maintain the application.
+> Note: The original repository for this project was hosted on a private repository within an organization. Unfortunately, access to the original repository was lost, which led to the creation of this new repository. This repository continues the development and maintenance of the application from where the previous one left off.
+
 
 ## Table of Contents
 
@@ -78,14 +79,14 @@ The music player application exposes a set of HTTP endpoints for interacting wit
 
 #### 1. Serve JavaScript and CSS
 
-- **GET /audio/js/&lt;path&gt;**
+- `GET /audio/js/<path>`
 
   - **Description:** Serves JavaScript files from the `js` directory.
   - **Path Parameters:**
     - `path` (string): The path to the JavaScript file to be served.
   - **Response:** The requested JavaScript file.
 
-- **GET /audio/css/&lt;path&gt;**
+- `GET /audio/css/<path>`
 
   - **Description:** Serves CSS files from the `css` directory.
   - **Path Parameters:**
@@ -94,7 +95,7 @@ The music player application exposes a set of HTTP endpoints for interacting wit
 
 #### 2. Home Page
 
-- **GET /audio/**
+- `GET /audio/`
 
   - **Description:** Renders the home page displaying all audio files from the database.
   - **Response:** HTML page with a list of audio files.
@@ -103,12 +104,12 @@ The music player application exposes a set of HTTP endpoints for interacting wit
 
 #### 3. Add New Audio
 
-- **GET /audio/add**
+- `GET /audio/add`
 
   - **Description:** Renders a form for adding a new audio file.
   - **Response:** HTML page with a form to upload audio.
 
-- **POST /audio/add**
+- `POST /audio/add`
 
   - **Description:** Adds a new audio file to the database.
   - **Request Body:**
@@ -121,7 +122,7 @@ The music player application exposes a set of HTTP endpoints for interacting wit
     - Returns a `500` error if there is an issue saving the file or inserting the record into the database.
 
 #### 4. Delete Audio
-- **DELETE /audio/delete**
+- `DELETE /audio/delete`
 
   - **Description:** Deletes an audio file from the database based on the provided ID.
   - **Query Parameters:**
@@ -133,7 +134,7 @@ The music player application exposes a set of HTTP endpoints for interacting wit
 
 #### 5. Edit Audio
 
-- **GET /audio/edit**
+- `GET /audio/edit`
 
   - **Description:** Renders a form to edit an existing audio file's details.
   - **Query Parameters:**
@@ -142,7 +143,7 @@ The music player application exposes a set of HTTP endpoints for interacting wit
   - **Errors:**
     - Returns a `500` error if there is an issue fetching the record.
 
-- **POST /audio/edit**
+- `POST /audio/edit`
 
   - **Description:** Updates an existing audio file's details in the database.
   - **Request Body:**
