@@ -26,6 +26,10 @@ def send_js(path):
 def send_css(path):
   return send_from_directory("css", path)
 
+@app.route("/audio/songs/<path:path>")
+def send_audio(path):
+  return send_from_directory("songs", path)
+
 @app.route("/audio/", methods=["GET"])
 def home():
   try:
