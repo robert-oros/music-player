@@ -29,13 +29,13 @@ To set up the project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-    git clone https://github.com/yourusername/music-player.git
+    git clone git@github.com:robert-oros/music-player.git
     cd music-player
    ```
 
 2. **Set up a virtual environment and activate it:**
     ```bash
-    python -m venv venv
+    python3 -m venv venv
     source venv/bin/activate # On Windows use `venv\Scripts\activate`
     ```
 
