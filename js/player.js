@@ -113,6 +113,5 @@ class AudioPlayer {
   }
 }
 
-// Initialize the audio player
 const player = new AudioPlayer();
 
