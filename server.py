@@ -65,9 +65,14 @@ def add():
   return render_template("add.html")
 
 def save_file(file):
-  file_name = uuid.uuid4()
+  songs_dir = "songs"
+  if not os.path.exists(songs_dir):
+    os.makedirs(songs_dir)
+
+  file_name = str(uuid.uuid4())
   _, file_extension = os.path.splitext(file.filename)
-  full_name = os.path.join("songs", f"{file_name}{file_extension}")
+  full_name = os.path.join(songs_dir, f"{file_name}{file_extension}")
+
   file.save(full_name)
   return full_name
 
