@@ -1,112 +1,118 @@
-let audio = new Audio();
-
-allSongs = document.querySelectorAll(".trelem");
-
-if (allSongs.length > 0) {
-  allSongs.forEach(song => {
-
-
-    song.addEventListener("click", function(e){
-      selectedSong = song.children[3].childNodes[1].src.split("/")[4]
-
-      
-
-      audio.src = "songs/"+selectedSong
-
-      console.log(audio.src)
-    })
-  });
-}
-
-playBtn = document.getElementById("playbtn");
-pauseBtn = document.getElementById("pausebtn");
-volumeSlider = document.getElementById("volumeslider");
-volumeBtn = document.getElementById("volumebtn");
-muteBtn = document.getElementById("mutebtn");
-progresBar = document.getElementById("seekslider");
-curtime = document.getElementById("curtimetext");
-durtime = document.getElementById("durtimetext");
-
-
-playBtn.addEventListener("click", playPause);
-pauseBtn.addEventListener("click", playPause);
-volumeSlider.addEventListener("mousemove", volumeProgres);
-volumeBtn.addEventListener("click", volumeMute);
-muteBtn.addEventListener("click", volumeMute);
-audio.addEventListener("timeupdate", function(){
-  progresBar.value = (audio.currentTime / audio.duration) * 100;
-});
-audio.addEventListener("timeupdate", timeBox);
-progresBar.addEventListener("change", function() {
-  progresBarTg(audio, seekslider)
-});
-
-
-function playPause() {
-  if (audio.src == "") {
-    alert("You should add a song!")
-  } else if (audio.paused) {
-    audio.play();
-    playBtn.style.display = "none";
-    pauseBtn.style.display = "block";
-  } else {
-    audio.pause();
-    playBtn.style.display = "block";
-    pauseBtn.style.display = "none";
+class AudioPlayer {
+  constructor() {
+    this.audio = new Audio();
+    this.initializeElements();
+    this.setupEventListeners();
   }
-}
 
-muteBtn.style.display = "none";
-function volumeMute() {
-  if (audio.muted) {
-    audio.muted = false;
-    volumeBtn.style.display = "block";
-    muteBtn.style.display = "none";
-    volumeSlider.value = 100;
-  } else {
-    audio.muted = true;
-    muteBtn.style.display =  "block";
-    volumeBtn.style.display = "none";
-    volumeSlider.value = 0;
+  initializeElements() {
+    this.playBtn = document.getElementById("playbtn");
+    this.pauseBtn = document.getElementById("pausebtn");
+    this.volumeSlider = document.getElementById("volumeslider");
+    this.volumeBtn = document.getElementById("volumebtn");
+    this.muteBtn = document.getElementById("mutebtn");
+    this.progressBar = document.getElementById("seekslider");
+    this.currentTimeDisplay = document.getElementById("curtimetext");
+    this.durationTimeDisplay = document.getElementById("durtimetext");
+    this.allSongs = document.querySelectorAll(".trelem");
   }
-}
 
-function volumeProgres() {
-  audio.volume = volumeSlider.value / 100;
-  if(audio.volume > 0.01) {
-    volumeBtn.style.display = "block";
-    muteBtn.style.display = "none";
-    audio.muted = false;
-  } else {
-    volumeBtn.style.display = "none";
-    muteBtn.style.display = "block";
-    audio.muted = true;
-  }
-}
+  setupEventListeners() {
+    this.allSongs.forEach(song => {
+      song.addEventListener("click", (e) => this.selectSong(e));
+    });
 
-function progresBarTg(audio,seekslider) {
-  var seekto = audio.duration * (seekslider.value / 100);
-  audio.currentTime =  seekto;
-}
+    [this.playBtn, this.pauseBtn].forEach(btn => 
+      btn.addEventListener("click", () => this.playPause())
+    );
 
-function timeBox() {
-  var curhour = Math.floor(audio.currentTime / 3600);
-  var curmin = Math.floor(audio.currentTime / 60);
-  var cursec = Math.floor(audio.currentTime - curmin * 60);
-  var durhour = Math.floor(audio.duration / 3600);
-  var durmin = Math.floor(audio.duration / 60);
-  var dursec = Math.floor(audio.duration - durmin * 60);
+    [this.volumeBtn, this.muteBtn].forEach(btn => 
+      btn.addEventListener("click", () => this.toggleMute())
+    );
 
-  if(curhour > 0){ curhour = curhour + ":"; }
-  else if(curhour === 0){ curhour = ""; }
-  if(durhour > 0){ durhour = durhour + ":"; }
-  else if(durhour === 0){ durhour = ""; }
-  if(curmin < 10){ curmin = "0" + curmin; }
-  if(cursec < 10){ cursec = "0" + cursec; }
-  if(durmin < 10){ durmin = "0" + durmin; }
-  if(dursec < 10){ dursec = "0" + dursec; }
-
-  curtime.innerHTML = curhour + curmin + ":" + cursec;
-  durtime.innerHTML = durhour + durmin + ":" + dursec;
-}
+    this.volumeSlider.addEventListener("input", () => this.updateVolume());
+    this.progressBar.addEventListener("change", () => this.seek());
     
+    this.audio.addEventListener("timeupdate", () => {
+      this.updateProgressBar();
+      this.updateTimeDisplay();
+    });
+  }
+
+  selectSong(e) {
+    const selectedSong = e.currentTarget.querySelector('source').src.split("/").pop();
+    this.audio.src = `songs/${selectedSong}`;
+  }
+
+  playPause() {
+    if (!this.audio.src) {
+      alert("You should add a song!");
+      return;
+    }
+    
+    if (this.audio.paused) {
+      this.audio.play();
+      this.playBtn.style.display = "none";
+      this.pauseBtn.style.display = "block";
+    } else {
+      this.audio.pause();
+      this.playBtn.style.display = "block";
+      this.pauseBtn.style.display = "none";
+    }
+  }
+
+  toggleMute() {
+    this.audio.muted = !this.audio.muted;
+    this.updateVolumeDisplay();
+  }
+
+  updateVolume() {
+    this.audio.volume = this.volumeSlider.value / 100;
+    this.audio.muted = this.audio.volume === 0;
+    this.updateVolumeDisplay();
+  }
+
+  updateVolumeDisplay() {
+    if (this.audio.muted || this.audio.volume === 0) {
+      this.volumeBtn.style.display = "none";
+      this.muteBtn.style.display = "block";
+      this.volumeSlider.value = 0;
+    } else {
+      this.volumeBtn.style.display = "block";
+      this.muteBtn.style.display = "none";
+      this.volumeSlider.value = this.audio.volume * 100;
+    }
+  }
+
+  seek() {
+    const seekTo = this.audio.duration * (this.progressBar.value / 100);
+    this.audio.currentTime = seekTo;
+  }
+
+  updateProgressBar() {
+    this.progressBar.value = (this.audio.currentTime / this.audio.duration) * 100;
+  }
+
+  updateTimeDisplay() {
+    this.currentTimeDisplay.textContent = this.formatTime(this.audio.currentTime);
+    this.durationTimeDisplay.textContent = this.formatTime(this.audio.duration);
+  }
+
+  formatTime(timeInSeconds) {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+
+    const parts = [
+      hours > 0 ? hours : null,
+      minutes.toString().padStart(2, '0'),
+      seconds.toString().padStart(2, '0')
+    ].filter(Boolean);
+
+    return parts.join(':');
+  }
+}
+
+// Initialize the audio player
+const player = new AudioPlayer();
+
