@@ -1,20 +1,22 @@
 let audio = new Audio();
 
-// allSongs = document.querySelectorAll(".trelem");
-// allSongs.forEach(song => {
+allSongs = document.querySelectorAll(".trelem");
+
+if (allSongs.length > 0) {
+  allSongs.forEach(song => {
 
 
-//   song.addEventListener("click", function(e){
-//     selectedSong = song.children[3].childNodes[1].src.split("/")[4]
+    song.addEventListener("click", function(e){
+      selectedSong = song.children[3].childNodes[1].src.split("/")[4]
 
-    
+      
 
-//     audio.src = "songs/"+selectedSong
+      audio.src = "songs/"+selectedSong
 
-//     console.log(audio.src)
-//   })
-// });
-
+      console.log(audio.src)
+    })
+  });
+}
 
 playBtn = document.getElementById("playbtn");
 pauseBtn = document.getElementById("pausebtn");
