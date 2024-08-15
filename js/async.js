@@ -35,38 +35,3 @@ Array.from(edit).map(elem => {
             })
     })
 })
-
-formElem = document.querySelector(".form-data");
-formElem.addEventListener("submit", function(e){
-    e.preventDefault();
-
-    let form = new FormData(formElem);
-    let title = form.get("title");
-    let autor = form.get("autor");
-    console.log("Title: " + title + "\n" + "Autor: " + autor);
-
-    
-})
-
-// let editBtn = document.querySelector(".editBtn");
-// Array.from(editBtn).map(elem => {
-//     editBtn.addEventListener("click", function(e){
-//         e.preventDefault();
-
-//         let href = elem.href;
-//         let data = {
-//             title: FormData.title.value,
-//             autor: FormData.autor.value
-//         }
-
-//         fetch(href, {
-//             method: "POST",
-//             body: JSON.stringify(data),
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         }).then(response => response.json())
-//           .then(data => console.log(JSON.stringify(data)))
-//           .catch(err => console.log(err));
-//     });
-// })

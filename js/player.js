@@ -20,7 +20,6 @@ class AudioPlayer {
   }
 
   setupEventListeners() {
-    
     if (this.allSongs.length > 0){
       this.allSongs.forEach(song => {
         song.addEventListener("click", (e) => this.selectSong(e));
