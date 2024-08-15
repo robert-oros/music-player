@@ -1,6 +1,9 @@
 ENV := $(PWD)/.env
 include $(ENV)
 
+run:
+	python3 main.py
+	
 mysql:
 	@echo "Starting MySQL container..."
 	@sudo docker run -d --name mysql-container \
