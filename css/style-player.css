@@ -145,12 +145,15 @@
 @media (max-width: 385px) {
   .slider {
     width: 198px;
+  }
 }
 @media (max-width: 364px) {
   .slider {
     width: 160px;
+  }
 }
 @media (max-width: 325px) {
   .slider {
     width: 90px;
+  }
 }
