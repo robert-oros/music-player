@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet"> 
   <link href="/audio/css/add.css" rel="stylesheet">
+  <style>
+    #file-name {
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #667;
+    }
+  </style>
 </head>
 <body>
   <div class="alert text-danger">{{error}}.</div>
@@ -18,14 +25,22 @@
         <input type="text" name="title" placeholder="Titlu"><br>
         <input type="text" name="autor" placeholder="Autor"><br>
         <label class="custom-file-upload">
-          <input type="file" name="file"/>
+          <input type="file" name="file" id="file-input" accept="audio/*"/>
           Alege fisierul
-        </label><br>
+        </label>
+        <div id="file-name"></div><br>
         <div class="add-container">
         <input type="submit" value="Adaugă" class="btn-add mt-3">
         </div>
       </form> 
     </div>
   </div>
+
+  <script>
+    document.getElementById('file-input').addEventListener('change', function(e) {
+      var fileName = e.target.files[0].name;
+      document.getElementById('file-name').textContent = 'Selected file: ' + fileName;
+    });
+  </script>
 </body>
 </html>

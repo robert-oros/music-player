@@ -8,10 +8,10 @@ A web-based music player application built using HTML, CSS, JavaScript, and Flas
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
-- [Screenshots](#screenshots)
 - [Notes](#notes)
 <!-- - [Contributing](#contributing)
 - [License](#license)
@@ -21,7 +21,12 @@ A web-based music player application built using HTML, CSS, JavaScript, and Flas
 
 - Play, pause audio tracks with intuitive controls.
 - Volume control and mute functionality for a personalized listening experience.
-- Upload, edit (TODO), and delete audio files directly through the interface.
+- Upload, edit, and delete audio files directly through the interface.
+
+## Screenshots
+![Image](doc/img11.png)
+![Image](doc/img12.png)
+![Image](doc/img14.png)
 
 ## Installation
 
@@ -66,10 +71,10 @@ To set up the project locally, follow these steps:
 
 3. **Managing Audio Files:**
     - Delete audio files using the provided links in the table.
-    - Edit functionality is not yet available and is under development.
+    - Edit functionality.
 
 4. **Current Song Display:**
-    - Selecting and displaying the current song is under development.
+    - Displaying the current song is under development.
 
 ## API Documentation
 
@@ -178,8 +183,6 @@ The application can be configured using the following environment variables:
 - `MYSQL_PORT`: The port number for the MySQL server (default: `3306`).
 
 Ensure you have a `.env` file set up with these variables if you want to customize the database connection.
-
-## Screenshots
 
 ### Notes
 
