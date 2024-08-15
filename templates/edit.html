@@ -11,13 +11,15 @@
 <body>
   <div class="container edit-page">
     <div class="form">
-      <form class="form-data" action="/audio/edit?id={{row[0]}}" method="POST">
+      <form class="form-data" action="/audio/edit?id={{row[0]}}" method="POST" enctype="multipart/form-data">
         <a href="/audio/" class="float-right"><i class="fa fa-close" href="/audio/"></i></a>
         <h1 class="pb-4 pt-3">Editează muzica</h1>
         <input type="text" name="title" value="{{row[1]}}"><br>
         <input type="text" name="autor" value="{{row[2]}}"><br>
-          <button type="submit" class="editBtn btn-edit">Editează</button>
-      </form> 
+        <input type="file" name="file" accept="audio/*"><br>
+        <small>Current file: {{row[3]}}</small><br>
+        <button type="submit" class="editBtn btn-edit">Editează</button>
+      </form>
     </div>  
   </div>
   <script src="/audio/js/async.js"></script>

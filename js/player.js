@@ -15,12 +15,17 @@ class AudioPlayer {
     this.currentTimeDisplay = document.getElementById("curtimetext");
     this.durationTimeDisplay = document.getElementById("durtimetext");
     this.allSongs = document.querySelectorAll(".trelem");
+
+    this.muteBtn.style.display = "none";
   }
 
   setupEventListeners() {
-    this.allSongs.forEach(song => {
-      song.addEventListener("click", (e) => this.selectSong(e));
-    });
+    
+    if (this.allSongs.length > 0){
+      this.allSongs.forEach(song => {
+        song.addEventListener("click", (e) => this.selectSong(e));
+      });
+    }
 
     [this.playBtn, this.pauseBtn].forEach(btn => 
       btn.addEventListener("click", () => this.playPause())

@@ -105,27 +105,51 @@ def delete():
   
   return Response("Record deleted successfully", status=200, mimetype='application/json')
 
-@app.route("/audio/edit", methods=['GET','POST'])
+@app.route("/audio/edit", methods=['GET', 'POST'])
 def edit():
-  if request.method == "POST":
-    title = request.form.get("title")
-    autor = request.form.get("autor")
-    file = request.form.get("file")
-    connection = create_connection()
-    cursor = connection.cursor()
-    cursor.execute(f'''UPDATE mp3player SET title="{title}", autor="{autor}", audio_path="{file}"''')
-    connection.commit()
-    cursor.close()
-    connection.close()
-    return redirect("/audio/")
   id = request.args.get("id")
+  if not id:
+    return Response("Missing 'id' parameter", status=400)
+
   connection = create_connection()
   cursor = connection.cursor()
-  cursor.execute("SELECT * FROM mp3player WHERE ID=?", (id,))
-  row = cursor.fetchone()
-  cursor.close()
-  connection.close()
-  return render_template("edit.html", row=row)
 
+  try:
+    if request.method == "POST":
+      title = request.form.get("title")
+      autor = request.form.get("autor")
+      file = request.files.get("file")
+      
+      if not title or not autor:
+        return Response("Missing title or author", status=400)
+
+      cursor.execute("SELECT audio_path FROM mp3player WHERE ID=%s", (id,))
+      old_file_path = cursor.fetchone()[0]
+
+      if file and file.filename:
+        if old_file_path and os.path.exists(old_file_path):
+          os.remove(old_file_path)
+        
+        new_file_path = save_file(file)
+        cursor.execute("UPDATE mp3player SET title=%s, autor=%s, audio_path=%s WHERE ID=%s", 
+        (title, autor, new_file_path, id))
+      else:
+        cursor.execute("UPDATE mp3player SET title=%s, autor=%s WHERE ID=%s", 
+        (title, autor, id))
+      
+      connection.commit()
+      return redirect("/audio/")
+    else:  # GET request
+      cursor.execute("SELECT * FROM mp3player WHERE ID=%s", (id,))
+      row = cursor.fetchone()
+      if not row:
+        return Response("Record not found", status=404)
+      return render_template("edit.html", row=row)
+  except Exception as e:
+    connection.rollback()
+    return Response(f"Error editing record: {str(e)}", status=500)
+  finally:
+    cursor.close()
+    connection.close()
 
 app.run(port=8000, debug=True)
