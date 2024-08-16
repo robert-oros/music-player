@@ -186,7 +186,7 @@ Ensure you have a `.env` file set up with these variables if you want to customi
 
 ### Notes
 
-> **Highlight Incomplete Features:** Clearly indicate that the "edit" feature, as well as the functionality for selecting and displaying the current song, are not yet complete and are under development.
+> **Highlight Incomplete Features:** Clearly indicate that the functionality for displaying the current song, is not yet complete and is under development.
 
 
 <!-- 
