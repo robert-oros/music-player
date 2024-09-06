@@ -48,13 +48,16 @@ To set up the project locally, follow these steps:
     ```bash
     pip3 install -r requirements.txt
     ```
-
-4. **Run the Flask application:**
+4. **Initialize MySQL database**
     ```bash
-    python3 server.py
+    make mysql
+    ```
+5. **Run the Flask application:**
+    ```bash
+    python3 main.py
     ```
 
-5. **Open your browser and go to:**
+6. **Open your browser and go to:**
     ```bash
     http://127.0.0.1:8000/audio
     ```
