@@ -17,6 +17,10 @@ class AudioPlayer {
     this.allSongs = document.querySelectorAll(".trelem");
 
     this.muteBtn.style.display = "none";
+
+    if (this.allSongs.length > 0) {
+      this.audio.src = this.allSongs[0].querySelector("source").src
+    }
   }
 
   setupEventListeners() {
@@ -41,11 +45,17 @@ class AudioPlayer {
       this.updateProgressBar();
       this.updateTimeDisplay();
     });
+
+    this.audio.addEventListener("loadedmetadata", () => {
+      this.updateTimeDisplay();
+      this.updateProgressBar();
+    });
+
   }
 
   selectSong(e) {
-    const selectedSong = e.currentTarget.querySelector('source').src.split("/").pop();
-    this.audio.src = `songs/${selectedSong}`;
+    const selectedSong = e.currentTarget.querySelector('source').src;
+    this.audio.src = selectedSong;
   }
 
   playPause() {
@@ -103,6 +113,10 @@ class AudioPlayer {
   }
 
   formatTime(timeInSeconds) {
+    if (isNaN(timeInSeconds) || !isFinite(timeInSeconds)) {
+      return "00:00";
+    }
+
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = Math.floor(timeInSeconds % 60);

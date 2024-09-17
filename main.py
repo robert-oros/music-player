@@ -56,7 +56,7 @@ def add():
 
     try:
       file_path = save_file(file)
-      insert_song(title, autor, file_path)
+      insert_song(title, autor, "audio/"+file_path)
     except Exception as e:
       return Response(f"Error adding song: {str(e)}", status=500)
 
