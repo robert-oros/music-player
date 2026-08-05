@@ -4,3 +4,4 @@ database.db
 uploads
 songs
 animals.json
+.env
